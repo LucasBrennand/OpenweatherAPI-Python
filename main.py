@@ -41,9 +41,9 @@ def get_weather(lat_and_lon):
 
         print(f"""
         Clima em {city_input}:
-        🌡 Temperatura: {temp_celsius:.1f}°C
-        🌥 Descrição: {description}
-        💧 Umidade: {humidity}%
+        Temperatura: {temp_celsius:.1f}°C
+        Descrição: {description}
+        Umidade: {humidity}%
         """)
     except requests.exceptions.RequestException as e:
         print("Erro:", e)
