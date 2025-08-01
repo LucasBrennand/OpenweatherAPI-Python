@@ -27,15 +27,26 @@ def get_lat_and_long():
         print("Error:",e)
 
 def get_weather(lat_and_lon):
-    lat = lat_and_lon[0]
-    lon = lat_and_lon[1]
+    lat, lon = lat_and_lon
     try:
-        response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}")
+        response = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}"
+        )
         response.raise_for_status()
         data = response.json()
-        print(data)
+
+        temp_celsius = data["main"]["temp"] - 273.15
+        description = data["weather"][0]["description"]
+        humidity = data["main"]["humidity"]
+
+        print(f"""
+        Clima em {city_input}:
+        🌡 Temperatura: {temp_celsius:.1f}°C
+        🌥 Descrição: {description}
+        💧 Umidade: {humidity}%
+        """)
     except requests.exceptions.RequestException as e:
-        print("Error",e)
+        print("Erro:", e)
 
 get_weather(get_lat_and_long())
 
