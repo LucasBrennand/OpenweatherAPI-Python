@@ -14,6 +14,7 @@ def get_lat_and_long():
     lat_and_lon = []
     try:
         response = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={city_input}&limit={1}&appid={API_KEY}")
+        print()
         response.raise_for_status()
         data = response.json()
         for i in data:
@@ -25,11 +26,18 @@ def get_lat_and_long():
     except requests.exceptions.RequestException as e:
         print("Error:",e)
 
-async def get_weather(lat_and_lon):
+def get_weather(lat_and_lon):
+    lat = lat_and_lon[0]
+    lon = lat_and_lon[1]
     try:
-    
+        response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}")
+        response.raise_for_status()
+        data = response.json()
+        print(data)
+    except requests.exceptions.RequestException as e:
+        print("Error",e)
 
-get_lat_and_long()
+get_weather(get_lat_and_long())
 
 # try:
 #     response = requests.get(URL)
